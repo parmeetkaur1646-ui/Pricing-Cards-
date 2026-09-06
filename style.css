@@ -42,6 +42,60 @@ h1 {
   max-width: 44ch;
 }
  
+/* Billing toggle */
+.toggle-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 2.2rem;
+}
+ 
+.toggle-row span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #a89a83;
+}
+ 
+.toggle-row span.active {
+  color: #201a12;
+}
+ 
+.switch {
+  position: relative;
+  width: 54px;
+  height: 28px;
+  background: #f1e7d6;
+  border: 1px solid #ecdcc0;
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 0;
+}
+ 
+.switch .knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffcf7d, #e6742a);
+  transition: transform 0.2s ease;
+}
+ 
+.switch[aria-checked="true"] .knob {
+  transform: translateX(26px);
+}
+ 
+.save-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1f8a52;
+  background: #e3f5e9;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+}
+ 
 /* Cards */
 .cards {
   display: grid;

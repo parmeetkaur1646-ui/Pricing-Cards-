@@ -3,7 +3,8 @@ const courses = [
     name: "Python Programming",
     icon: "🐍",
     desc: "Beginner-friendly course to build a strong programming foundation.",
-    price: 15,
+    monthly: 15,
+    annual: 12,
     cta: "Choose Plan",
     featured: false,
     features: [
@@ -17,7 +18,8 @@ const courses = [
     name: "C++ Programming",
     icon: "⚙️",
     desc: "Deepen your understanding of OOP, memory, and performance.",
-    price: 23,
+    monthly: 23,
+    annual: 18,
     cta: "Choose Plan",
     featured: true,
     badge: "BEST VALUE",
@@ -32,7 +34,8 @@ const courses = [
     name: "C Programming",
     icon: "🔧",
     desc: "Learn low-level programming and how computers really work.",
-    price: 20,
+    monthly: 20,
+    annual: 16,
     cta: "Choose Plan",
     featured: false,
     features: [
@@ -48,9 +51,17 @@ const cardsEl = document.getElementById("cards");
 const modalOverlay = document.getElementById("modalOverlay");
 const modalText = document.getElementById("modalText");
 const modalClose = document.getElementById("modalClose");
+const billingSwitch = document.getElementById("billingSwitch");
+const labelMonthly = document.getElementById("label-monthly");
+const labelAnnual = document.getElementById("label-annual");
+ 
+let annual = false;
  
 function render() {
   cardsEl.innerHTML = courses.map(course => {
+    const price = annual ? course.annual : course.monthly;
+    const suffixText = annual ? "/month, billed yearly" : "/month";
+ 
     const featuresHtml = course.features.map(f => `
       <li class="${f.included ? "" : "muted"}">${f.text}</li>
     `).join("");
@@ -61,7 +72,7 @@ function render() {
         <div class="icon-circle">${course.icon}</div>
         <h2 class="course-name">${course.name}</h2>
         <p class="course-desc">${course.desc}</p>
-        <div class="price">$${course.price}<span class="price-suffix"> /month</span></div>
+        <div class="price">$${price}<span class="price-suffix"> ${suffixText}</span></div>
         <ul class="features">${featuresHtml}</ul>
         <button class="cta" data-course="${course.name}">${course.cta}</button>
       </div>
@@ -76,6 +87,14 @@ function render() {
     });
   });
 }
+ 
+billingSwitch.addEventListener("click", () => {
+  annual = !annual;
+  billingSwitch.setAttribute("aria-checked", String(annual));
+  labelMonthly.classList.toggle("active", !annual);
+  labelAnnual.classList.toggle("active", annual);
+  render();
+});
  
 modalClose.addEventListener("click", () => {
   modalOverlay.classList.remove("open");
